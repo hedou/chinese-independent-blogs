@@ -1,0 +1,19 @@
+{
+  "name": "chinese-independent-blogs-site",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler dev",
+    "dev:remote": "wrangler dev --remote --var CACHE_TTL:0",
+    "db:migrate": "wrangler d1 migrations apply independent-blogs --local",
+    "dev:seed": "wrangler d1 execute independent-blogs --local --file=./scripts/seed-dev.sql",
+    "crawl": "curl -sSN -X POST -H \"Authorization: Bearer local-dev-token\" \"http://localhost:8787/api/admin/crawl?all=1&favicons=all\"",
+    "deploy": "wrangler d1 migrations apply independent-blogs --remote && wrangler deploy"
+  },
+  "devDependencies": {
+    "wrangler": "^4.149.0"
+  },
+  "dependencies": {
+    "hono": "^4.13.12"
+  }
+}
